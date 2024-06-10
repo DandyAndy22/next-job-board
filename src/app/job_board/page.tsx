@@ -1,13 +1,11 @@
-'use client'
 import NavBar from "@/components/NavBar";
 
-export default function Home() {
-  
 
+export default function JobBoard() {
   return (
     <main>
       <NavBar />
-      Home Page! 
+      List of jobs here
     </main>
   );
 }
