@@ -9,6 +9,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useUserContext } from '@/context/userContext';
+import Link from 'next/link';
+
 
 export default function NavBar() {
     const user = useUserContext()
@@ -43,8 +45,20 @@ export default function NavBar() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Home</MenuItem>
-                        <MenuItem onClick={handleClose}>Jobs</MenuItem>
+                        <MenuItem 
+                            component={Link}
+                            onClick={handleClose}
+                            href="/"
+                        >
+                        Home
+                        </MenuItem>
+                        <MenuItem 
+                            component={Link}
+                            onClick={handleClose}
+                            href="/job_board"
+                        >
+                        Jobs
+                        </MenuItem>
                     </Menu>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Job Board
