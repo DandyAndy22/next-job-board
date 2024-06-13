@@ -2,7 +2,6 @@ import { JobBoard } from "@/components/JobBoard";
 import { JobDetails } from "../types";
 import NavBar from "@/components/NavBar";
 
-
 export default function JobBoardParent() {
   const initialJobs: JobDetails[] = [
     {
