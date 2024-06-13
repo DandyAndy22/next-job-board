@@ -20,24 +20,16 @@ function PaperComponent(props: PaperProps) {
   );
 }
 
-export default function DraggableDialog(props: { job: JobDetails }) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+export default function DraggableDialog(props: { job: JobDetails, open: boolean, setOpen: Function}) {
+  
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open draggable dialog
-      </Button>
       <Dialog
-        open={open}
+        open={props.open}
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
@@ -57,6 +49,5 @@ export default function DraggableDialog(props: { job: JobDetails }) {
           <Button onClick={handleClose}>Apply (Redirect)</Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
-  );
+  )
 }

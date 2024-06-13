@@ -2,10 +2,15 @@
 import JobList from "@/components/JobList";
 import NavBar from "@/components/NavBar";
 import { useState } from "react";
+import { JobDetails } from "../types";
+import JobDetailsDialog from "@/components/JobDetailsDialog";
 
 
 export default function JobBoard() {
-    const jobs = [
+    const [selectedJob, setSelectedJob] = useState<number | null>(null)
+    const [open, setOpen] = useState(false)
+
+    const jobs: JobDetails[] = [
         {
             "id": 1,
             "title": "Software Engineer",
@@ -90,16 +95,16 @@ export default function JobBoard() {
 
     const handleRowClick = (index: number) => {
         console.log(`Row ${index} clicked`)
-    
+        setSelectedJob(index)
+        setOpen(true)
     }
-
-    const [open, setOpen] = useState(false);
 
     return (
         <main>
             <NavBar />
             Heading Content Here
-            <JobList jobs={jobs} />
+            <JobList jobs={jobs} setSelectedJob={setSelectedJob} handleRowClick={handleRowClick} />
+            {selectedJob ? <JobDetailsDialog job={jobs[selectedJob]} open={open} setOpen={setOpen} /> : null}
         </main>
     );
 }
