@@ -1,100 +1,123 @@
 'use client'
 import {
-    createContext,
-    ReactNode,
-    useContext,
-    useEffect,
-    useState
+	createContext,
+	ReactNode,
+	useContext,
+	useEffect,
+	useState
 } from "react"
 import {
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    User
+	GoogleAuthProvider,
+	signInWithPopup,
+	signOut,
+	User
 } from "firebase/auth"
 import {
-    doc,
-    setDoc,
-    collection,
-    getDocs
+	getDoc,
+	doc,
+	setDoc
 } from "firebase/firestore"
 import { auth, db } from "../app/firebase"
-import { JobDetails } from "@/app/types"
-
-interface UserContextType {
-    user: User | null
-    jobs: Object[] | null
-    saveJob: Function
-}
+import { UserContextType, UserSettings } from "@/app/types"
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null)
-    const [newJob, setNewJob] = useState<JobDetails | null>(null)
-    const [jobs, setJobs] = useState<Object[] | null>(null)
+	const [user, setUser] = useState<User | null>(null);
+	const [userSettings, setUserSettings] = useState<UserSettings | null>(null)
 
-    const saveJob = (job: JobDetails) => {
-        if (job != null) {
-            setNewJob({
-                id: job.id,
-                title: job.title,
-                company: job.company,
-                description: job.description,
-                salary: job.salary,
-                tags: job.tags,
-                application_link: job.application_link
-            })
-        }
-    }
+	const saveUserSettings = (settings: UserSettings) => {
+		if (user != null) {
+			setUserSettings({
+				id: user.uid,
+				title: settings.title,
+				description: settings.description,
+				company: settings.company,
+				salary: settings.salary,
+				applicationLink: settings.applicationLink
+			})
+		}
+	}
 
-    useEffect(() => {
-        writeNewJob(newJob)
-    }, [newJob])
+	useEffect(() => {
+		writeUserSettings(userSettings)
+	}, [userSettings])
 
-    //useEffect(() => {
-    //  findUser(user)
-    //}, [])
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => findUser(user))
+		return unsubscribe
+	}, [])
 
-    const [userDataArray, setUserDataArray] = useState<{ id: string }[]>([]);
+	async function findUser(user: User | null) {
+		setUser(user)
 
-    return (
-        <UserContext.Provider value={{ user, jobs, saveJob }}>
-            {children}
-        </UserContext.Provider>
-    );
+		if (user != null) {
+			setUserSettings(await findUserSettings(user.uid))
+		} else {
+			setUserSettings(null)
+		}
+	}
+
+	return (
+		<UserContext.Provider value={{ user, userSettings, saveUserSettings }}>
+			{children}
+		</UserContext.Provider>
+	);
 }
 
+async function findUserSettings(uid: string) {
+	const docRef = doc(db, "users", uid)
+	const docSnap = await getDoc(docRef)
 
-function writeNewJob(newJob: JobDetails | null | undefined) {
-    if (newJob != null) {
-        const docRef = doc(db, "jobs", newJob.id)
-        const settings = {
-            title: newJob.title ? newJob.title : ""
-        }
-        setDoc(docRef, settings)
-    }
+	if (docSnap.exists()) {
+		const data = docSnap.data()
+		const settings = {
+			id: docSnap.id,
+			title: data.title,
+			description: data.description,
+			company: data.company,
+			salary: data.salary,
+			applicationLink: data.applicationLink
+		}
+		return settings
+	} else {
+		return null
+	}
+}
+
+function writeUserSettings(userSettings: UserSettings | null | undefined) {
+	if (userSettings != null) {
+		const docRef = doc(db, "jobs", userSettings.id)
+		const settings = {
+			title: userSettings.title ? userSettings.title : "",
+			description: userSettings.description ? userSettings.description : "",
+			company: userSettings.company ? userSettings.company : "",
+			salary: userSettings.salary ? userSettings.salary : "",
+			applicationLink: userSettings.applicationLink ? userSettings.applicationLink : ""
+		}
+		setDoc(docRef, settings)
+	}
 }
 
 export const googleSignIn = () => {
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
+	const provider = new GoogleAuthProvider()
+	signInWithPopup(auth, provider)
 }
 
 export const logOut = () => {
-    signOut(auth)
+	signOut(auth)
 }
 export function useUserContext() {
-    const context = useContext(UserContext)
-    return context?.user
+	const context = useContext(UserContext)
+	return context?.user
 }
 
-export function useJobsContext() {
-    const context = useContext(UserContext)
-    return context?.jobs
+export function useUserSettingsContext() {
+	const context = useContext(UserContext)
+	return context?.userSettings
 }
 
-export function useSaveJobContext() {
-    const context = useContext(UserContext)
-    return context?.saveJob
+export function useSaveUserSettingsContext() {
+	const context = useContext(UserContext)
+	return context?.saveUserSettings
 }
