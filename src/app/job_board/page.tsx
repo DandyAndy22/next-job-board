@@ -17,7 +17,8 @@ export default function JobBoard() {
             "description": "Develop and maintain web applications, collaborate with cross-functional teams, and ensure high performance and responsiveness of applications.",
             "company": "Tech Innovators Inc.",
             "salary": "$90,000 - $120,000",
-            "tags": ["JavaScript", "React", "Node.js", "Agile"]
+            "tags": ["JavaScript", "React", "Node.js", "Agile"],
+            "application_link": "https://www.techinnovators.com/jobs/software-engineer"
         },
         {
             "id": 2,
@@ -25,7 +26,8 @@ export default function JobBoard() {
             "description": "Plan, direct, and coordinate marketing policies and programs, such as determining the demand for products and services offered by a firm and its competitors.",
             "company": "Creative Solutions Ltd.",
             "salary": "$70,000 - $90,000",
-            "tags": ["SEO", "Content Marketing", "Advertising", "Social Media"]
+            "tags": ["SEO", "Content Marketing", "Advertising", "Social Media"],
+            "application_link": "https://www.creativesolutions.com/jobs/marketing-manager"
         },
         {
             "id": 3,
@@ -33,7 +35,8 @@ export default function JobBoard() {
             "description": "Analyze complex data sets to identify patterns and trends, create predictive models, and support decision-making processes.",
             "company": "Data Insights Co.",
             "salary": "$100,000 - $130,000",
-            "tags": ["Python", "Machine Learning", "Statistics", "Data Visualization"]
+            "tags": ["Python", "Machine Learning", "Statistics", "Data Visualization"],
+            "application_link": "https://www.datainsights.com/jobs/data-scientist"
         },
         {
             "id": 4,
@@ -41,7 +44,8 @@ export default function JobBoard() {
             "description": "Lead product development from ideation to launch, work with engineering, design, and marketing teams to deliver high-quality products.",
             "company": "Innovative Products LLC",
             "salary": "$110,000 - $140,000",
-            "tags": ["Product Development", "Agile", "User Experience", "Market Research"]
+            "tags": ["Product Development", "Agile", "User Experience", "Market Research"],
+            "application_link": "https://www.innovativeproducts.com/jobs/product-manager"
         },
         {
             "id": 5,
@@ -49,7 +53,8 @@ export default function JobBoard() {
             "description": "Create visual concepts to communicate ideas that inspire, inform, and captivate consumers, develop overall layout and production design for various applications.",
             "company": "Design Studio Pro",
             "salary": "$50,000 - $70,000",
-            "tags": ["Adobe Creative Suite", "Branding", "Typography", "Illustration"]
+            "tags": ["Adobe Creative Suite", "Branding", "Typography", "Illustration"],
+            "application_link": "https://www.designstudiopro.com/jobs/graphic-designer"
         },
         {
             "id": 6,
@@ -57,7 +62,8 @@ export default function JobBoard() {
             "description": "Oversee the recruitment, selection, and onboarding processes, manage employee relations, and ensure compliance with labor laws.",
             "company": "Corporate Solutions Inc.",
             "salary": "$80,000 - $100,000",
-            "tags": ["Recruitment", "Employee Relations", "Compliance", "Performance Management"]
+            "tags": ["Recruitment", "Employee Relations", "Compliance", "Performance Management"],
+            "application_link": "https://www.corporatesolutions.com/jobs/hr-manager"
         },
         {
             "id": 7,
@@ -65,7 +71,8 @@ export default function JobBoard() {
             "description": "Identify and develop new business opportunities, build and maintain client relationships, and achieve sales targets.",
             "company": "Global Sales Corp.",
             "salary": "$60,000 - $80,000",
-            "tags": ["B2B Sales", "Account Management", "Lead Generation", "Negotiation"]
+            "tags": ["B2B Sales", "Account Management", "Lead Generation", "Negotiation"],
+            "application_link": "https://www.globalsales.com/jobs/sales-executive"
         },
         {
             "id": 8,
@@ -73,7 +80,8 @@ export default function JobBoard() {
             "description": "Protect an organization’s computer systems and networks, monitor for security breaches, and investigate and respond to incidents.",
             "company": "SecureTech LLC",
             "salary": "$95,000 - $120,000",
-            "tags": ["Network Security", "Incident Response", "Risk Assessment", "Penetration Testing"]
+            "tags": ["Network Security", "Incident Response", "Risk Assessment", "Penetration Testing"],
+            "application_link": "https://www.securetech.com/jobs/cybersecurity-analyst"
         },
         {
             "id": 9,
@@ -81,7 +89,8 @@ export default function JobBoard() {
             "description": "Oversee the daily operations of a company, ensure efficiency and effectiveness, and manage resources and processes.",
             "company": "Efficient Operations Ltd.",
             "salary": "$85,000 - $110,000",
-            "tags": ["Process Improvement", "Supply Chain Management", "Team Leadership", "Budgeting"]
+            "tags": ["Process Improvement", "Supply Chain Management", "Team Leadership", "Budgeting"],
+            "application_link": "https://www.efficientoperations.com/jobs/operations-manager"
         },
         {
             "id": 10,
@@ -89,7 +98,8 @@ export default function JobBoard() {
             "description": "Design and improve the user experience and interface of digital products, conduct user research, and create wireframes and prototypes.",
             "company": "User Experience Experts",
             "salary": "$70,000 - $95,000",
-            "tags": ["User Research", "Wireframing", "Prototyping", "Interaction Design"]
+            "tags": ["User Research", "Wireframing", "Prototyping", "Interaction Design"],
+            "application_link": "https://www.uxexperts.com/jobs/ux-ui-designer"
         }
     ]
 

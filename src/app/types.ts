@@ -1,8 +1,9 @@
 export interface JobDetails {
-    id: number
-    title: string
-    description: string
+    application_link: string
     company: string
+    description: string
+    id: number
     salary: string
     tags: string[]
+    title: string
   }
