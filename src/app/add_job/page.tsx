@@ -1,4 +1,4 @@
-import JobCreationForm from "@/components/JobCreationForm";
+import { JobCreationForm } from "@/components/JobCreationForm";
 import NavBar from "@/components/NavBar";
 
 export default function AddJob() {

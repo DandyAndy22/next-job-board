@@ -9,7 +9,7 @@ export interface JobDetails {
 	title: string
 }
 
-export interface UserSettings {
+export interface AddedJob {
 	id: string
 	title: string
 	description: string
@@ -20,6 +20,6 @@ export interface UserSettings {
 
 export interface UserContextType {
 	user: User | null
-	userSettings: UserSettings | null
-	saveUserSettings: Function
+	addedJob: AddedJob | null
+	saveAddedJob: Function
 }

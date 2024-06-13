@@ -1,9 +1,9 @@
 'use client'
-import { useSaveUserSettingsContext, useUserSettingsContext } from "@/context/userContext"
+import { useSaveAddedJobContext, useAddedJobContext } from "@/context/userContext"
 import { Box, Button, FormControl, Link, List, ListItem, ListItemText, TextField, Typography } from "@mui/material"
 import { useEffect, useId, useState } from "react"
 
-export default function UserInfoForm() {
+export function JobCreationForm() {
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const [company, setCompany] = useState<string>("")
@@ -13,13 +13,13 @@ export default function UserInfoForm() {
 
     const [formEditable, setFormEditable] = useState<boolean>(false)
 
-    const userSettings = useUserSettingsContext()
-    const saveUserSettings = useSaveUserSettingsContext()
+    const addedJob = useAddedJobContext()
+    const saveAddedJob = useSaveAddedJobContext()
 
     const handleSaveUser = () => {
         setFormEditable(false)
-        if (saveUserSettings != null) {
-            saveUserSettings({ title, description, company, salary, applicationLink, id })
+        if (saveAddedJob != null) {
+            saveAddedJob({ title, description, company, salary, applicationLink, id })
         }
     }
 
@@ -47,14 +47,14 @@ export default function UserInfoForm() {
     const handleEdit = () => setFormEditable(true)
 
     useEffect(() => {
-        if (userSettings != undefined && userSettings != null) {
+        if (addedJob != undefined && addedJob != null) {
             console.log("title Set in Effect")
-            setTitle(userSettings.title)
-            setDescription(userSettings.description)
-            setCompany(userSettings.company)
-            setApplicationLink(userSettings.applicationLink)
+            setTitle(addedJob.title)
+            setDescription(addedJob.description)
+            setCompany(addedJob.company)
+            setApplicationLink(addedJob.applicationLink)
         }
-    }, [userSettings])
+    }, [addedJob])
 
     return (
         <div>

@@ -18,17 +18,17 @@ import {
 	setDoc
 } from "firebase/firestore"
 import { auth, db } from "../app/firebase"
-import { UserContextType, UserSettings } from "@/app/types"
+import { UserContextType, AddedJob } from "@/app/types"
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
 	const [user, setUser] = useState<User | null>(null);
-	const [userSettings, setUserSettings] = useState<UserSettings | null>(null)
+	const [addedJob, setAddedJob] = useState<AddedJob | null>(null)
 
-	const saveUserSettings = (settings: UserSettings) => {
+	const saveAddedJob = (settings: AddedJob) => {
 		if (user != null) {
-			setUserSettings({
+			setAddedJob({
 				id: settings.id,
 				title: settings.title,
 				description: settings.description,
@@ -40,8 +40,8 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 	}
 
 	useEffect(() => {
-		writeUserSettings(userSettings)
-	}, [userSettings])
+		writeNewJob(addedJob)
+	}, [addedJob])
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => findUser(user))
@@ -52,20 +52,20 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 		setUser(user)
 
 		if (user != null) {
-			setUserSettings(await findUserSettings(user.uid))
+			setAddedJob(await findAddedJob(user.uid))
 		} else {
-			setUserSettings(null)
+			setAddedJob(null)
 		}
 	}
 
 	return (
-		<UserContext.Provider value={{ user, userSettings, saveUserSettings }}>
+		<UserContext.Provider value={{ user, addedJob, saveAddedJob }}>
 			{children}
 		</UserContext.Provider>
 	);
 }
 
-async function findUserSettings(uid: string) {
+async function findAddedJob(uid: string) {
 	const docRef = doc(db, "users", uid)
 	const docSnap = await getDoc(docRef)
 
@@ -85,15 +85,15 @@ async function findUserSettings(uid: string) {
 	}
 }
 
-function writeUserSettings(userSettings: UserSettings | null | undefined) {
-	if (userSettings != null) {
-		const docRef = doc(db, "jobs", userSettings.id)
+function writeNewJob(addedJob: AddedJob | null | undefined) {
+	if (addedJob != null) {
+		const docRef = doc(db, "jobs", addedJob.id)
 		const settings = {
-			title: userSettings.title ? userSettings.title : "",
-			description: userSettings.description ? userSettings.description : "",
-			company: userSettings.company ? userSettings.company : "",
-			salary: userSettings.salary ? userSettings.salary : "",
-			applicationLink: userSettings.applicationLink ? userSettings.applicationLink : ""
+			title: addedJob.title ? addedJob.title : "",
+			description: addedJob.description ? addedJob.description : "",
+			company: addedJob.company ? addedJob.company : "",
+			salary: addedJob.salary ? addedJob.salary : "",
+			applicationLink: addedJob.applicationLink ? addedJob.applicationLink : ""
 		}
 		setDoc(docRef, settings)
 	}
@@ -112,12 +112,12 @@ export function useUserContext() {
 	return context?.user
 }
 
-export function useUserSettingsContext() {
+export function useAddedJobContext() {
 	const context = useContext(UserContext)
-	return context?.userSettings
+	return context?.addedJob
 }
 
-export function useSaveUserSettingsContext() {
+export function useSaveAddedJobContext() {
 	const context = useContext(UserContext)
-	return context?.saveUserSettings
+	return context?.saveAddedJob
 }
