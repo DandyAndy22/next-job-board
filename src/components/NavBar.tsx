@@ -6,11 +6,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useUserContext } from '@/context/userContext';
 import Link from 'next/link';
+import { LoginButton } from './LoginButton';
 
 
 export default function NavBar() {
@@ -46,38 +46,21 @@ export default function NavBar() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem 
-                            component={Link}
-                            onClick={handleClose}
-                            href="/"
-                        >
-                        Home
+                        <MenuItem component={Link} onClick={handleClose} href="/">
+                            Home
                         </MenuItem>
-                        <MenuItem 
-                            component={Link}
-                            onClick={handleClose}
-                            href="/job_board"
-                        >
-                        Jobs
+                        <MenuItem component={Link} onClick={handleClose} href="/job_board">
+                            Jobs
                         </MenuItem>
+                        {user &&
+                        <MenuItem component={Link} onClick={handleClose} href="/add_job">
+                            Add Job
+                        </MenuItem>}
                     </Menu>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Job Board
                     </Typography>
-                    {user && (
-                        <div>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                        </div>
-                    )}
+                    <LoginButton />
                 </Toolbar>
             </AppBar>
         </Box>

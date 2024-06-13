@@ -29,7 +29,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 	const saveUserSettings = (settings: UserSettings) => {
 		if (user != null) {
 			setUserSettings({
-				id: user.uid,
+				id: settings.id,
 				title: settings.title,
 				description: settings.description,
 				company: settings.company,
@@ -72,7 +72,7 @@ async function findUserSettings(uid: string) {
 	if (docSnap.exists()) {
 		const data = docSnap.data()
 		const settings = {
-			id: docSnap.id,
+			id: data.id,
 			title: data.title,
 			description: data.description,
 			company: data.company,

@@ -1,6 +1,7 @@
+'use client'
 import { useSaveUserSettingsContext, useUserSettingsContext } from "@/context/userContext"
 import { Box, Button, FormControl, Link, List, ListItem, ListItemText, TextField, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 
 export default function UserInfoForm() {
     const [title, setTitle] = useState<string>("")
@@ -8,7 +9,8 @@ export default function UserInfoForm() {
     const [company, setCompany] = useState<string>("")
     const [salary, setSalary] = useState<string>("")
     const [applicationLink, setApplicationLink] = useState<string>("")
-    
+    const id = useId()
+
     const [formEditable, setFormEditable] = useState<boolean>(false)
 
     const userSettings = useUserSettingsContext()
@@ -17,7 +19,7 @@ export default function UserInfoForm() {
     const handleSaveUser = () => {
         setFormEditable(false)
         if (saveUserSettings != null) {
-            saveUserSettings({ title, description, company, salary, applicationLink })
+            saveUserSettings({ title, description, company, salary, applicationLink, id })
         }
     }
 
